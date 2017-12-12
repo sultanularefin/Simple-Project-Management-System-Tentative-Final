@@ -1,0 +1,263 @@
+﻿@using Smpl_prjct_mng_mnt_tol.EF
+@model Smpl_prjct_mng_mnt_tol.EF.User
+@{
+    //ViewBag.Title = "AdminPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .btn {
+        /*margin-left:7px;
+        margin-right:7px;*/
+        border-left: 10px;
+    }
+
+    .topbuttonsDiv {
+        margin-bottom: 40px;
+    }
+</style>
+
+
+
+@if (ViewBag.message != null)
+{
+    <h1 style="color:crimson">@ViewBag.Message</h1>
+}
+@if (Session["logger"] != null)
+{
+
+    LoginViewModel a = new LoginViewModel();
+    a = (LoginViewModel)Session["logger"];
+
+    List<User> alluser = new List<User>();
+    alluser = ViewBag.AllUsers;
+
+    if (a.designationName == "It Admin")
+    {
+        <h1>It Admin Page</h1>
+
+  
+        <div style="float:right" class="topbuttonsDiv">
+            @*<div>*@
+
+            <button> @Html.ActionLink("Add User", "AddUser", "User", null, new { @class = "btn btn-primary" })</button>
+            @*<button>
+                @Html.ActionLink("Update", "UpdateUser", "User", null, new { @class = "btn btn-danger" })
+            </button>*@
+            @*@Html.ActionLink("Add Center", "AddCenter", "Center", null, new { @class = "btn btn-primary" })*@
+            
+            @*<button>
+                @Html.ActionLink("View User Details", "ViewUsers", "User", null, new { @class = "btn btn-primary" })
+            </button>*@
+
+        </div>
+
+        <div class="clearfix"></div>
+
+        using (Html.BeginForm("AddUser", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @id = "AddUserForm", @class = "clearfix", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h2>Add new Users</h2>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.id)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control", id = "userPassword", onblur = "defaultpassword()" } })
+                        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", @id = "userspassword" } })
+                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.status, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.RadioButtonFor(model => model.status,true, new { @checked = "true" }) Active
+                        @Html.RadioButtonFor(model => model.status,false) Inactive
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.designationId, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    <div class="col-md-10">
+                      
+                        @Html.ListBoxFor(model=>model.designationId, ViewBag.Designations as IEnumerable<SelectListItem>, htmlAttributes: new { @id = "designationId", @style = "width:300px;height:100px;" })
+                 
+                    
+                    </div>
+
+                </div>
+
+
+                @*<div class="form-group">
+                        @Html.LabelFor(model => model.designationId, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                        @Html.DropDownList("fname", ViewBag.Designations as IEnumerable<SelectListItem>, htmlAttributes: new { @class = "dropdown", @id = "course-time" })
+
+
+                    </div>*@
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+
+        }
+
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayName("Name")
+                </th>
+
+                <th>
+                    @Html.DisplayName("Email")
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Designation)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.status)
+                </th>
+
+
+
+                <th>
+                    @Html.DisplayName("Reset Password");
+                </th>
+            </tr>
+
+            @if (alluser != null)
+            {
+
+                foreach (User User in alluser)
+
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => User.name)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => User.email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => User.Designation.name)
+                        </td>
+                       
+                        @if (User.status == true)
+                        {
+                            <td>
+                                @Html.DisplayName("Active")
+
+
+                            </td>
+                        }
+                        else
+
+                        {
+                            <td>
+                                @Html.DisplayName("Inactive")
+
+                            </td>
+                        }
+
+
+                        <td>
+                            <a href="@Url.Action("ResetDefault", new { id = User.id })">
+                                <span class="glyphicon glyphicon-list-alt"> </span>&nbsp;Reset as default
+                            </a>
+                        </td>
+                        <td>
+                            @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+
+
+
+                            <a href="@Url.Action("UpdateUser", new { id = User.id })">
+                                <span class="glyphicon glyphicon glyphicon-edit"></span>&nbsp;Update
+                            </a>
+                            &nbsp;|&nbsp;
+                            <a href="@Url.Action("DeleteUser", new { id = User.id })">
+                                <span class="glyphicon glyphicon-trash"></span>&nbsp;Delete
+                            </a>
+
+                        </td>
+                    </tr>
+                }
+
+
+            }
+        </table>
+    }
+}
+
+else
+{
+    <h1> You are not authorized,please login </h1>
+
+}
+
+
+@*<script src="~/Scripts/jquery-3.2.1.js"></script>*@
+@section scripts {
+    <script type="text/javascript">
+
+        //$('#userPassword').blur(function a() {
+
+
+        //    alert("rrrrrrrrrrrrr");
+        //});
+
+
+
+        function defaultpassword(sender, args) {
+
+            var email = document.getElementById('userPassword').value;
+
+            email = email.concat("123");
+
+            //alert(email);
+
+            //email = email + "123";
+            document.getElementById("userspassword").value = email;
+
+
+            return;
+            //var someNr = 100;
+            //$('#MyHiddenId').val(someNr);
+            //Or without jQuery :
+
+            //document.getElementById("MyHiddenId").value = somNr;
+
+
+        }
+    </script>
+
+}

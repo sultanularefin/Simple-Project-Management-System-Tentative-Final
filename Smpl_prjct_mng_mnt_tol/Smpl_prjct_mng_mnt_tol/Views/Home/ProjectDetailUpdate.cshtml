@@ -1,0 +1,167 @@
+﻿@model Smpl_prjct_mng_mnt_tol.EF.Project
+@using Smpl_prjct_mng_mnt_tol.EF
+
+
+@{
+    ViewBag.Title = "UpdateProject";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+
+    .btn {
+        /*margin-left:7px;
+        margin-right:7px;*/
+        border-left: 10px;
+    }
+
+    .topbuttonsDiv {
+        margin-bottom: 40px;
+    }
+</style>
+
+
+@if (ViewBag.message != null)
+{
+    <h1 style="color:crimson">@ViewBag.Message</h1>
+}
+@if (Session["logger"] != null)
+{
+    <h1>Update Porject</h1>
+
+    LoginViewModel a = new LoginViewModel();
+    a = (LoginViewModel)Session["logger"];
+
+    List<Project> allProjects = new List<Project>();
+    allProjects = ViewBag.AllProjects;
+
+    if (a.designationName == "Project Manager")
+    {
+
+        <div style="float:right" class="topbuttonsDiv">
+
+            <button> @Html.ActionLink("Add Project", "ProjectManagerHome", "Home", null, new { @class = "btn btn-primary" })</button>
+
+            <button>
+                @Html.ActionLink("Update Project", "UpdateProject", "Home", null, new { @class = "btn btn-danger" })
+            </button>
+            <button>
+                @Html.ActionLink("Assign Employee", "AssignEmployee", "Home", null, new { @class = "btn btn-primary" })
+            </button>
+
+            <button>
+                @Html.ActionLink("Add Comment", "AddComment", "Task", null, new { @class = "btn btn-danger" })
+            </button>
+
+
+
+        </div>
+        <div class="clearfix"></div>
+
+        using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Project</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.id)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.codeName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.codeName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.codeName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.startDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.startDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.endDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.endDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.duration, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.duration, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.duration, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.filesId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.filesId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.filesId, "", new { @class = "text-danger" })
+                        <button>
+                            @Html.ActionLink("Browse", "UploadFiles", "Home", new { id = Model.id,name=Model.name }, new { @class = "btn btn-danger" })
+                        </button>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.statusId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.statusId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.statusId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.shortName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.shortName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.shortName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+
+
+        }
+    }
+}
+else
+{
+    <h1> You are not authorized,please login</h1>
+
+}
+
