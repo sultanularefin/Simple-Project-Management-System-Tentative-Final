@@ -225,6 +225,11 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repo\BaseRepo.cs" />
+    <Compile Include="Repo\IRepo.cs" />
+    <Compile Include="Repo\ProjectRepo.cs" />
+    <Compile Include="Repo\TaskRepo.cs" />
+    <Compile Include="Repo\UserRepo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

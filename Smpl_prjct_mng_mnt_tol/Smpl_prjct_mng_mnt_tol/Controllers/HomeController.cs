@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Net;
 using System.Data.Entity;
+using Smpl_prjct_mng_mnt_tol.Repo;
+
 
 namespace Smpl_prjct_mng_mnt_tol.Controllers
 {
@@ -42,10 +44,8 @@ namespace Smpl_prjct_mng_mnt_tol.Controllers
         }
 
 
-
         public ActionResult Index()
         {
-
             return View();
         }
 
@@ -78,9 +78,16 @@ namespace Smpl_prjct_mng_mnt_tol.Controllers
             }
             else
             {
-                context.Projects.Add(aProject);
 
-                context.SaveChanges();
+                using (var repo = new ProjectRepo())
+                {
+                    repo.Add(aProject);
+                }
+
+
+                //    context.Projects.Add(aProject);
+
+                //context.SaveChanges();
 
                 ViewBag.message = "Insertion Successful";
 
@@ -386,7 +393,7 @@ namespace Smpl_prjct_mng_mnt_tol.Controllers
         [HttpPost]
         public ActionResult UploadFiles(int id, HttpPostedFileBase file)
         {
-
+            
             string path = "";
             //int maxSize = 1000000;
             Project oneProject = context.Projects.Find(id);
@@ -466,8 +473,6 @@ namespace Smpl_prjct_mng_mnt_tol.Controllers
             ViewBag.message = null;
             if (!ModelState.IsValid)
             {
-
-
                 ViewBag.message = "Validation Error";
                 return View(model);
             }

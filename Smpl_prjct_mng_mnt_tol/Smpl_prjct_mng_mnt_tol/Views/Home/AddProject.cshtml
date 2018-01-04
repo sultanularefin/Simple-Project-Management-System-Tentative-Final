@@ -192,29 +192,12 @@ else
 
     <script type="text/javascript">
         $(function () {
+           // alert("x");
             $("#datepicker1").datepicker();
         });
 
-        $(function () {
-            $("#datepicker2").datepicker();
-        });
-
-        /*
-
-        $("#show").click(function () {
-
-            $.ajax({
-                method: "get",
-                url: '/Home/UploadFilesAdd',
-                success: function (data) {
-                    alert("hi");
-                }
-
-            })
-            //console.log(listc)
-            //renderchart(listc)
-        });
-        */
+       
+   
 
         function calculateDuration(sender, args) {
 
@@ -246,6 +229,9 @@ else
         }
 
         function emptycheck(value) {
+
+
+
             return (!value || value == undefined || value == "" || value.length == 0);
         }
 
