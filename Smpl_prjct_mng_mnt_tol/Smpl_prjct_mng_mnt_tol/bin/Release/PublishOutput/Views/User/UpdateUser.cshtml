@@ -1,0 +1,134 @@
+﻿@model Smpl_prjct_mng_mnt_tol.EF.User
+
+
+@{
+    ViewBag.Title = "UpdateUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .btn {
+        /*margin-left:7px;
+        margin-right:7px;*/
+        border-left: 10px;
+    }
+
+    .topbuttonsDiv {
+        margin-bottom: 40px;
+    }
+</style>
+
+
+@if (ViewBag.message != null)
+{
+    <h1 style="color:crimson">@ViewBag.Message</h1>
+}
+
+@if (Session["logger"] != null)
+{
+
+    <br />
+    <br />
+        <div style="float:right" class="topbuttonsDiv">
+            @*<div>*@
+
+            <button> @Html.ActionLink("Add User", "AddUser", "User", null, new { @class = "btn btn-primary" })</button>
+            <button> @Html.ActionLink("View Users", "AddUser", "User", null, new { @class = "btn btn-danger" })</button>
+
+
+        </div>
+        <div class="clearfix"></div>
+
+
+        <h2>UpdateUser</h2>
+
+    using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>User</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.id)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.status, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @if (Model.status == true)
+                    {
+
+                        @Html.RadioButtonFor(model => model.status, true, new { @checked = "true" });
+                        <label>
+                            Active
+                        </label>
+                        @Html.RadioButtonFor(model => model.status, false);
+                        <label>
+                            Inactive
+                        </label>
+                    }
+                    else
+                    {
+                        @Html.RadioButtonFor(model => model.status, true);
+                        <label>
+                            Active
+                        </label>
+
+                        @Html.RadioButtonFor(model => model.status, false, new { @checked = "true" });
+                        <label>
+                            Inactive
+                        </label>
+                    }
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.designationId, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                @Html.DropDownListFor(model => model.designationId, ViewBag.Designations as IEnumerable<SelectListItem>, htmlAttributes: new { @class = "dropdown", @id = "course-time" })
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+else
+{
+    <h1> You are not authorized,please login </h1>
+
+}
+

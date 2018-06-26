@@ -1,0 +1,126 @@
+﻿@model Smpl_prjct_mng_mnt_tol.EF.User
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //int result;
+    //result = ViewBag.success;
+}
+
+
+@if (ViewBag.message != null)
+{
+    <h1 style="color:crimson">@ViewBag.message</h1>
+}
+
+
+
+
+@if (Session["logger"] != null)
+{
+    int Redirect_Flag;
+    if (ViewBag.DeleteSuccess != null)
+    {
+        Redirect_Flag = (int)ViewBag.DeleteSuccess;
+    }
+
+    <h2 style="color:crimson">Delete User</h2>
+
+    <h3>Are you sure you want to delete this user?</h3>
+    <div>
+
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.email)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.password)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.password)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.status)
+            </dt>
+
+
+            @if (Model.status == true)
+            {
+                <dd>
+                    @Html.DisplayName("Active")
+
+
+                </dd>
+            }
+            else
+
+            {
+                <dd>
+                    @Html.DisplayName("Inactive")
+
+                </dd>
+            }
+            @*<dd>
+                    @Html.DisplayFor(model => model.status)
+                </dd>*@
+
+            <dt>
+                @Html.DisplayNameFor(model => model.designationId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.designationId)
+            </dd>
+
+        </dl>
+    </div>
+
+
+    using (Html.BeginForm())
+    {
+
+        @Html.AntiForgeryToken()
+
+
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" />
+            @Html.ActionLink("Back to All Employee List", "AddUser", "User", htmlAttributes: new { @class = "btn btn-success" })
+        </div>
+
+    }
+
+}
+
+
+
+else
+{
+    <h1> You are not authorized,please login </h1>
+}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,112 @@
+﻿@using Smpl_prjct_mng_mnt_tol.EF
+@model Smpl_prjct_mng_mnt_tol.EF.User
+@{
+    ViewBag.Title = "AdminPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .btn {
+        /*margin-left:7px;
+        margin-right:7px;*/
+        border-left: 10px;
+    }
+
+    .topbuttonsDiv {
+        margin-bottom: 40px;
+    }
+</style>
+
+
+@if (Session["logger"] != null)
+{
+    LoginViewModel a = new LoginViewModel();
+    a = (LoginViewModel)Session["logger"];
+
+
+
+    if (a.designationName == "It Admin")
+    {
+        <h2>It Admin Page</h2>
+
+
+        <div class="topbuttonsDiv">
+
+            <button> @Html.ActionLink("Add User", "AddUser", "User", null, new { @class = "btn btn-primary" })</button>
+            <button>
+                @Html.ActionLink("Update", "UpdateUser", "User", null, new { @class = "btn btn-danger" })
+            </button>
+            @*@Html.ActionLink("Add Center", "AddCenter", "Center", null, new { @class = "btn btn-primary" })*@
+            <button>
+                @Html.ActionLink("View User Details", "ViewUsers", "User", null, new { @class = "btn btn-primary" })
+            </button>
+
+        </div>
+
+        <div class="clearfix"></div>
+
+        using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.id)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.status, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.designationId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.designationId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.designationId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+
+    else
+    {
+    < h1 > You are not authorized,please login</ h1 >
+    }
+}

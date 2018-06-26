@@ -19,6 +19,8 @@ namespace Smpl_prjct_mng_mnt_tol.Controllers
         EF3 context = new EF3();
         LoginViewModel aLoginViewModel = new LoginViewModel();
 
+      
+
         private List<SelectProject> GetAllProjects()
         {
             List<SelectProject> AllProjects = new List<SelectProject>();
@@ -364,6 +366,7 @@ namespace Smpl_prjct_mng_mnt_tol.Controllers
             ViewBag.tasksbyProject = tasksbyProject;
             ViewBag.AssignedMembers = AssignedMembers;
 
+            
 
             //logFile.Close();   //arefin vvi
             return View(OurprojectDetail);
@@ -480,16 +483,50 @@ namespace Smpl_prjct_mng_mnt_tol.Controllers
 
             //var AllCategories = context.Categories.Include("Courses").ToList();
 
+
+
             else
             {
 
                 Session["logger"] = null;
-                var aUser = from U in context.Users.Include("Designation")
-                            where ((U.email == model.Email) && (U.password == model.Password))
-                            select U;
 
 
-                if (!aUser.Any())
+                //var normalEmpProjects = context.Assignments.Include(m => m.Project).Where(m => m.userId == a.id).Select(X => new ProjectView
+                //{
+
+                //    id = X.projectId,
+                //    name = X.Project.name,
+                //    shortName = X.Project.shortName,
+                //    statusname = context.ProjectStatuses.Where(o => o.id == X.Project.id).Select(o => o.name).FirstOrDefault().ToString(),
+                //    memberCount = context.Assignments.Where(o => o.projectId == X.Project.id).Count(),
+                //    taskCount = context.Tasks.Where(s => s.projectId == X.Project.id).Count(),
+
+                //}).ToList();
+
+
+                //var statusname = context.ProjectStatuses.Where(o => o.id == 2).Select(o => o.name).FirstOrDefault().ToString();
+
+                //Where(m => (m.projectId == oneAssignment.projectId) && (m.userId == oneAssignment.userId))
+
+                //.Select(m => m.id).FirstOrDefault().ToString());
+
+                //var logFile2 = new StreamWriter("E:log6.txt");
+                //context.Database.Log = message => logFile2.WriteLine(message);
+
+
+                //User theUser = context.Users.Find(3);
+
+                User aUser = context.Users.Include(m=>m.Designation).Where(m => (m.email == model.Email) && (m.password == model.Password)).FirstOrDefault();
+
+
+                //var aUser = from U in context.Users.Include("Designations")
+                //            where ((U.email == model.Email) && (U.password == model.Password))
+                //            select U;
+
+              /*  logFile2.Close(); */  //arefin vvi
+
+
+                if (aUser == null)
                 {
                     ViewBag.message = "User Not found";
                     return View();
@@ -497,7 +534,12 @@ namespace Smpl_prjct_mng_mnt_tol.Controllers
                 }
 
 
-                User ourUser = aUser.FirstOrDefault();
+
+                User ourUser = new EF.User();
+
+                ourUser = aUser;
+
+                //ourUser = aUser;
                 //Session["loggedinEmail"] = ourUser.email;
 
 
@@ -540,12 +582,9 @@ namespace Smpl_prjct_mng_mnt_tol.Controllers
                 {
                     return RedirectToAction("UXEngineer", "Home");
                 }
-
-
                 else return RedirectToLocal(returnUrl);
 
-
-
+                
             }
 
         }
@@ -634,12 +673,6 @@ namespace Smpl_prjct_mng_mnt_tol.Controllers
                 taskCount = context.Tasks.Where(s => s.projectId == X.Project.id).Count(),
 
             }).ToList();
-
-
-
-
-
-
 
 
             ViewBag.YourProjects = normalEmpProjects;
