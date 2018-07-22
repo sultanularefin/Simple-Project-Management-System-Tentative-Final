@@ -1,6 +1,6 @@
 # Simple Project Management Tools
 
-## This is a tentative Asp.net MVC project. It has following Users/Employees. 
+This is a tentative Asp.net MVC project. It has following Users/Employees. 
 
 **It Admin:**
 Responsible for creating Users/Employees. (e.g. Project Manager,Developer etc).
