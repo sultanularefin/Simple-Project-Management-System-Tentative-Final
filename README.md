@@ -16,7 +16,7 @@ Created by It Admin, can create task and add comment to task,
 View Project in which he/she is involved. view project details, view task details,View Comment Details
 and a few more things.
 
-**Only code files ** are added in this repo.
+**Only code files** are added in this repo.
 
 
 
