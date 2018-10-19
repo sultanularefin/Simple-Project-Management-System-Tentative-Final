@@ -16,7 +16,13 @@ Created by It Admin, can create task and add comment to task,
 View Project in which he/she is involved. view project details, view task details,View Comment Details
 and a few more things.
 
-Database file and all other files are added in this repo.
+**Only code files ** are added in this repo.
+
+
+
+![Database Diagram of Simple project management system](project_management_system_tentative_final.jpg)
+
+![Project Manager Page](project_management_system_Update_porject.jpg)
 
 [Twitter](https://twitter.com/mdsultanul)
 
