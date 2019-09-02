@@ -1,5 +1,6 @@
 # Simple Project Management Tools
-# Please check this branch [hitstrokeRepo]() https://github.com/sultanularefin/Simple-Project-Management-System-Tentative-Final/tree/hitstrokeRepo/Smpl_prjct_mng_mnt_tol) and the master branch too.
+# Please check this branch [hitstrokeRepo](http://w3school.com)
+# and the master branch too.
 # "hitstrokeRepo" contains the sql script file for database.
  
 
