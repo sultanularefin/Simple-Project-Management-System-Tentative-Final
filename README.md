@@ -1,4 +1,5 @@
 # Simple Project Management Tools
+# Please check this branch "hitstrokeRepo" it contains latest code.
 
 This is a tentative Asp.net MVC project. It has following Users/Employees. 
 
