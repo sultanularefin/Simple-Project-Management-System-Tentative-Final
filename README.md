@@ -1,5 +1,7 @@
 # Simple Project Management Tools
-# Please check this branch "hitstrokeRepo" it contains latest code.
+# Please check this branch [hitstrokeRepo]() https://github.com/sultanularefin/Simple-Project-Management-System-Tentative-Final/tree/hitstrokeRepo/Smpl_prjct_mng_mnt_tol) and the master branch too.
+# "hitstrokeRepo" contains the sql script file for database.
+ 
 
 This is a tentative Asp.net MVC project. It has following Users/Employees. 
 
