@@ -1,0 +1,27 @@
+@using Microsoft.AspNetCore.Identity
+@using ProjectManagementSystem.Models
+
+@{
+    var userName = Context.Session.GetString("UserName");
+    var userEmail = Context.Session.GetString("UserEmail");
+    var userId = Context.Session.GetInt32("UserId");
+    var designationName = Context.Session.GetString("DesignationName");
+}
+
+@if (userId.HasValue)
+{
+    <form asp-area="" asp-controller="Home" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a asp-area="" asp-controller="Home" asp-action="Index" style="color:#f48541">Hello @(userName ?? "User")!</a>
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        </ul>
+    </form>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li><a asp-area="" asp-controller="Home" asp-action="Login" id="loginLink" style="color:#f48541">Log in</a></li>
+    </ul>
+}
