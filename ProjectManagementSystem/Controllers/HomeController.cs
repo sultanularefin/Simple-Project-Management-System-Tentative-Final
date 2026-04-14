@@ -416,7 +416,27 @@ namespace ProjectManagementSystem.Controllers
             ViewBag.message = null;
             if (!ModelState.IsValid)
             {
-                ViewBag.message = "Validation Error";
+                
+                // This will show in your output/console
+                foreach (var entry in ModelState)
+                {
+                    if (entry.Value.Errors.Any())
+                    {
+                        Console.WriteLine($"Field: {entry.Key}");
+                        Console.WriteLine($"Attempted Value: {entry.Value.AttemptedValue}");
+                        foreach (var error in entry.Value.Errors)
+                        {
+                            Console.WriteLine($"Error: {error.ErrorMessage}");
+                            if (error.Exception != null)
+                                Console.WriteLine($"Exception: {error.Exception.Message}");
+                        }
+                    }
+                }
+    
+                ViewBag.message = "Validation Error - Check logs for details";
+                
+                
+                // ViewBag.message = "Validation Error";
                 return View(model);
             }
 

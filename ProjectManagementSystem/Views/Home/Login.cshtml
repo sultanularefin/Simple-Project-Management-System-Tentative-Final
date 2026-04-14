@@ -15,6 +15,7 @@ else
         <div class="col-md-8">
             <section id="loginForm">
                 <form asp-action="Login" asp-controller="Home" method="post" class="form-horizontal" role="form">
+                    @Html.AntiForgeryToken()
                     <h4>Use a local account to log in.</h4>
                     <hr />
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
